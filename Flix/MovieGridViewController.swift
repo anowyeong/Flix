@@ -71,6 +71,8 @@ class MovieGridViewController: UIViewController, UICollectionViewDataSource, UIC
         
         cell.posterView.af_setImage(withURL: posterUrl!)
         
+        
+        
         return cell
     }
     
@@ -84,9 +86,25 @@ class MovieGridViewController: UIViewController, UICollectionViewDataSource, UIC
     }
     */
 
-    
-    
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        
+        
+        // Find selected movie
+        let cell = sender as! UICollectionViewCell
+        
+        let indexPath = collectionView.indexPath(for: cell)!
+        
+        let movie =  movies[indexPath.row]
+        
+        
+        // Pass the selected object to the new view controller.
+        let detailsViewController = segue.destination as! GridDetailsViewController
+        detailsViewController.movie = movie
+        
+        collectionView.deselectItem(at: indexPath, animated: true)
+
+    }
     
 }
 
